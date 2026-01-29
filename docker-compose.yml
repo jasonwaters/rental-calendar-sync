@@ -1,0 +1,38 @@
+version: "3.8"
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: rental-calendar-sync:latest
+    volumes:
+      - ./.env:/app/.env:ro
+      - ./output:/data
+    command: npm run help
+
+  fetch:
+    image: rental-calendar-sync:latest
+    volumes:
+      - ./.env:/app/.env:ro
+      - ./output:/data
+    command: npm run fetch
+
+  csv:
+    image: rental-calendar-sync:latest
+    volumes:
+      - ./output:/data
+    command: npm run csv
+
+  ical:
+    image: rental-calendar-sync:latest
+    volumes:
+      - ./.env:/app/.env:ro
+      - ./output:/data
+    command: npm run ical
+
+  analyze:
+    image: rental-calendar-sync:latest
+    volumes:
+      - ./output:/data
+    command: npm run analyze

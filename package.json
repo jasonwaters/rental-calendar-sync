@@ -1,0 +1,46 @@
+{
+  "name": "rental-calendar-sync",
+  "version": "1.0.0",
+  "description": "Sync rental property reservations to calendar (iCal) with CSV/JSON export. Currently supports TrackHS property management system.",
+  "main": "src/fetch-reservations.js",
+  "scripts": {
+    "fetch": "node src/fetch-reservations.js",
+    "fetch:year": "node src/fetch-reservations.js --start-date $(date +%Y)-01-01 --end-date $(date +%Y)-12-31",
+    "csv": "node src/reservations-to-csv.js",
+    "ical": "node src/reservations-to-ical.js",
+    "analyze": "node src/analyze.js",
+    "sync": "node src/fetch-reservations.js",
+    "help": "node src/fetch-reservations.js --help"
+  },
+  "keywords": [
+    "rental",
+    "calendar",
+    "ical",
+    "sync",
+    "property-management",
+    "reservations",
+    "trackhs",
+    "vacation-rental",
+    "airbnb",
+    "csv-export"
+  ],
+  "author": "Jason Waters",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:jasonwaters/rental-calendar-sync.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jasonwaters/rental-calendar-sync/issues"
+  },
+  "homepage": "https://github.com/jasonwaters/rental-calendar-sync#readme",
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.978.0",
+    "dayjs": "^1.11.19",
+    "dotenv": "^16.4.5",
+    "ical-generator": "^10.0.0"
+  }
+}

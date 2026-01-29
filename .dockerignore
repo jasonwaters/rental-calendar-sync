@@ -1,0 +1,34 @@
+# Git and version control
+.git
+.gitignore
+
+# Environment files (use volumes instead)
+.env
+
+# Output files
+*.json
+*.csv
+*.ics
+!package.json
+!package-lock.json
+
+# Documentation
+docs/
+README.md
+*.md
+
+# Node modules (will be installed in container)
+node_modules/
+
+# Logs
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
