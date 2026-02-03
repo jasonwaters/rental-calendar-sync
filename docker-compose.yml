@@ -11,6 +11,14 @@ services:
       - ./output:/data
     command: npm run help
 
+  # Complete sync workflow - runs fetch, csv, and ical in sequence
+  sync:
+    image: rental-calendar-sync:latest
+    volumes:
+      - ./.env:/app/.env:ro
+      - ./output:/data
+    command: npm run sync
+
   fetch:
     image: rental-calendar-sync:latest
     volumes:

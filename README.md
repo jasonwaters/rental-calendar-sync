@@ -1,5 +1,7 @@
 # Rental Calendar Sync
 
+![Docker Build](https://github.com/jasonwaters/rental-calendar-sync/actions/workflows/publish-docker.yml/badge.svg)
+
 Sync rental property reservations to your calendar with automatic iCal generation, CSV export, and statistical analysis. Currently supports TrackHS property management system.
 
 Since TrackHS doesn't provide a public API, this tool reverse-engineers their internal API endpoints to fetch reservation data.
@@ -17,6 +19,7 @@ Since TrackHS doesn't provide a public API, this tool reverse-engineers their in
 - 📊 Statistical analysis (revenue, occupancy, booking sources)
 - ☁️ Optional AWS S3 upload for calendar sync
 - 🐳 Docker support for easy deployment
+- 🚀 **Automated CI/CD** - GitHub Actions automatically builds and publishes on every push
 
 ## Project Structure
 
@@ -105,13 +108,21 @@ docker run --rm \
   rental-calendar-sync:latest npm run fetch
 ```
 
-**See the complete [Docker Guide](docs/DOCKER.md) for:**
+#### 🚀 Automated Scheduling on Synology NAS
 
-- Building and publishing images
-- Running all commands in containers
-- Publishing to Docker Hub, GitHub Container Registry
-- Docker Compose examples
-- Best practices and troubleshooting
+Want to automatically sync every 12 hours on your Synology NAS? See the **[Docker Quick Start Guide](docs/DOCKER-QUICKSTART.md)** for a fast-track setup!
+
+**Docker Documentation:**
+
+- **[Docker Quick Start](docs/DOCKER-QUICKSTART.md)** - ⭐ Fast setup: Publish to GitHub + Schedule on Synology
+- [Complete Docker Guide](docs/DOCKER.md) - Building, running, best practices
+- [GitHub Publishing Guide](docs/GITHUB-PACKAGES.md) - Detailed GHCR publishing instructions
+- [Synology Setup Guide](docs/SYNOLOGY-SETUP.md) - Complete Synology configuration and troubleshooting
+
+**CI/CD:**
+
+- GitHub Actions automatically builds and publishes Docker images on every push to `main`
+- See [.github/workflows/README.md](.github/workflows/README.md) for details
 
 ## Usage
 

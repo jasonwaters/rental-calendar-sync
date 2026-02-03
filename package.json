@@ -9,7 +9,7 @@
     "csv": "node src/reservations-to-csv.js",
     "ical": "node src/reservations-to-ical.js",
     "analyze": "node src/analyze.js",
-    "sync": "node src/fetch-reservations.js",
+    "sync": "npm run fetch && npm run csv && npm run ical",
     "help": "node src/fetch-reservations.js --help"
   },
   "keywords": [
@@ -35,7 +35,7 @@
   },
   "homepage": "https://github.com/jasonwaters/rental-calendar-sync#readme",
   "engines": {
-    "node": ">=14.0.0"
+    "node": ">=20.0.0"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.978.0",

@@ -1,7 +1,7 @@
 # Rental Calendar Sync Docker Image
 # Syncs rental property reservations to calendar with iCal, CSV, and JSON export
 
-FROM node:18-alpine
+FROM node:20-alpine
 
 # Set working directory
 WORKDIR /app
