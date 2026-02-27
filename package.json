@@ -10,8 +10,9 @@
     "excel": "node src/reservations-to-excel.js",
     "markdown": "node src/reservations-to-markdown.js",
     "ical": "node src/reservations-to-ical.js",
+    "changes": "node src/track-reservation-changes.js",
     "analyze": "node src/analyze.js",
-    "sync": "npm run fetch && npm run csv && npm run excel && npm run markdown && npm run ical",
+    "sync": "npm run fetch && npm run changes && npm run csv && npm run excel && npm run markdown && npm run ical",
     "help": "node src/fetch-reservations.js --help"
   },
   "keywords": [
@@ -44,6 +45,7 @@
     "dayjs": "^1.11.19",
     "dotenv": "^16.4.5",
     "ical-generator": "^10.0.0",
+    "jsondiffpatch": "^0.7.3",
     "xlsx": "^0.18.5"
   }
 }

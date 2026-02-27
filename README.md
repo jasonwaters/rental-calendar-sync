@@ -11,6 +11,7 @@ Since TrackHS doesn't provide a public API, this tool reverse-engineers their in
 - 🔐 Authenticate with TrackHS using username and password
 - 📥 Retrieve all reservations for a specified date range
 - 🔄 Automatic pagination handling
+- 🧾 Year-partitioned reservation change tracking (add/changed/removed)
 - 🛡️ CSRF token extraction and handling
 - 💾 Export to multiple formats:
   - **JSON** - Raw data with all details
@@ -33,7 +34,12 @@ rental-calendar-sync/
 ├── output/                        # Output files (auto-created)
 │   ├── reservations-YYYY.json    # Raw API data
 │   ├── reservations-YYYY.csv     # Spreadsheet format
-│   └── reservations-YYYY.ics     # Calendar format
+│   ├── reservations-YYYY.ics     # Calendar format
+│   └── audit/                    # Change tracking outputs
+│       ├── state-YYYY.json       # Per-year state store
+│       ├── changes-YYYY.ndjson   # Per-year event log
+│       ├── changes-YYYY.md       # Per-year cumulative ledger (all runs)
+│       └── reservation-changelog.ndjson # Global append-only log
 ├── docs/                          # Documentation
 │   ├── API-DOCUMENTATION.md
 │   ├── AUTH-IMPLEMENTATION.md
@@ -139,10 +145,13 @@ npm run fetch
 # 2. Convert to CSV (creates output/reservations-YYYY.csv)
 npm run csv
 
-# 3. Generate iCal for calendar sync (creates output/reservations-YYYY.ics)
+# 3. Track reservation changes (creates output/audit/*)
+npm run changes
+
+# 4. Generate iCal for calendar sync (creates output/reservations-YYYY.ics)
 npm run ical
 
-# 4. Analyze your data
+# 5. Analyze your data
 npm run analyze
 ```
 
@@ -191,6 +200,34 @@ This creates `.ics` files that can be:
 - Uploaded to S3 for automatic calendar syncing
 
 See [docs/ICAL-SYNC.md](docs/ICAL-SYNC.md) for detailed setup instructions.
+
+### Track Reservation Changes
+
+Generate a per-year change report and append events to the global audit log:
+
+```bash
+npm run changes
+# Creates:
+# - output/audit/state-YYYY.json
+# - output/audit/changes-YYYY.ndjson
+# - output/audit/changes-YYYY.md
+# - output/audit/reservation-changelog.ndjson
+```
+
+By default, removals are emitted after a reservation is missing in 2 consecutive runs.
+If no audit state exists yet, the tracker will automatically bootstrap from
+`reservations-b-YYYY.json` (if present) so first-run diffs can still be detected.
+
+```bash
+# Track against a specific file/year and custom missing threshold
+npm run changes -- reservations-2026.json --year 2026 --missing-threshold 3
+
+# Explicitly compare against a prior snapshot for first-run backfill
+npm run changes -- reservations-2026.json --previous-file reservations-b-2026.json
+
+# Re-run bootstrap comparison even if audit state already exists
+npm run changes -- reservations-2026.json --previous-file reservations-b-2026.json --force-bootstrap --missing-threshold 1
+```
 
 ### Analyze Data
 
